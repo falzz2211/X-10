@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-10 | Website Kelas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+:root{--bg:#07111f;--card:#0f1d31;--card2:#13243b;--text:#f8fafc;--muted:#94a3b8;--primary:#38bdf8;--secondary:#818cf8;--border:rgba(255,255,255,.09)}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);overflow-x:hidden}
+body.light{--bg:#f1f5f9;--card:#fff;--card2:#e2e8f0;--text:#0f172a;--muted:#64748b;--border:rgba(15,23,42,.1)}
+nav{position:fixed;top:0;width:100%;padding:15px 6%;display:flex;justify-content:space-between;align-items:center;background:rgba(7,17,31,.82);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);z-index:1000}
+.logo{font-size:25px;font-weight:800;color:var(--primary)}.logo span{color:var(--text)}
+.nav-links{display:flex;gap:22px;list-style:none}.nav-links a{color:var(--muted);text-decoration:none;font-size:14px}.nav-links a:hover{color:var(--primary)}
+.nav-btn,.menu-toggle{width:40px;height:40px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer}.menu-toggle{display:none}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 20px 60px;background:radial-gradient(circle at 15% 15%,#164e63,transparent 32%),radial-gradient(circle at 85% 80%,#312e81,transparent 32%)}
+.badge{display:inline-block;padding:8px 18px;border:1px solid rgba(56,189,248,.3);background:rgba(56,189,248,.08);color:var(--primary);border-radius:50px;margin-bottom:20px;font-size:13px}
+.hero h1{font-size:clamp(58px,10vw,110px);line-height:.95;font-weight:800}.hero h1 span{background:linear-gradient(90deg,var(--primary),var(--secondary));-webkit-background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:25px auto;color:var(--muted);font-size:17px}.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{padding:13px 22px;border-radius:12px;text-decoration:none;font-weight:600;transition:.3s}.btn:hover{transform:translateY(-3px)}.primary{background:var(--primary);color:#082f49}.secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.clock{margin:30px auto 0;padding:11px 18px;width:max-content;background:var(--card);border:1px solid var(--border);border-radius:14px;color:var(--muted)}
+section{padding:85px 6%}.section-title{text-align:center;margin-bottom:40px}.section-title h2{font-size:36px}.section-title p{color:var(--muted);margin-top:6px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:23px;transition:.3s}.card:hover{transform:translateY(-5px);border-color:var(--primary)}.icon{font-size:32px;margin-bottom:12px}.card p{color:var(--muted);font-size:14px}
+.member{text-align:center}.avatar{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 13px;background:linear-gradient(135deg,var(--primary),var(--secondary));font-weight:800;font-size:25px}
+.structure{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}.role{border-left:4px solid var(--primary);padding:20px;background:var(--card);border-radius:15px}.role h3{color:var(--primary);margin-bottom:8px}.role p{color:var(--muted);line-height:1.8}
+.search{display:block;width:min(600px,100%);margin:0 auto 25px;padding:13px 16px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);outline:none}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;background:var(--card);border-radius:18px;overflow:hidden}th,td{padding:14px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap}th{background:var(--card2);color:var(--primary)}
+.kas{max-width:650px;margin:auto;text-align:center;padding:38px;border-radius:25px;background:linear-gradient(135deg,#075985,#312e81)}.kas-value{font-size:48px;font-weight:800;margin:10px 0}.kas button{padding:10px 18px;border:0;border-radius:10px;margin:5px;cursor:pointer;font-weight:600}
+.announcement{background:var(--card);border-left:4px solid var(--primary);padding:18px;border-radius:12px;margin-bottom:14px}.announcement small{color:var(--primary)}.announcement p{color:var(--muted);margin-top:5px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px}.gallery-item{height:170px;border-radius:18px;background:linear-gradient(135deg,#0ea5e9,#4f46e5);display:flex;align-items:center;justify-content:center;font-size:44px}
+footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--border)}
+.accessibility{position:fixed;right:18px;bottom:18px;z-index:1100}.access-btn{width:52px;height:52px;border:0;border-radius:50%;background:var(--primary);cursor:pointer;font-size:21px}.access-panel{display:none;position:absolute;right:0;bottom:62px;width:220px;padding:15px;background:var(--card);border:1px solid var(--border);border-radius:15px}.access-panel.show{display:block}.access-panel button{width:100%;padding:9px;margin-top:7px;border:0;border-radius:8px;cursor:pointer}
+.high-contrast{filter:contrast(1.35)}
+@media(max-width:800px){.nav-links{display:none;position:absolute;top:70px;left:0;width:100%;padding:20px;background:var(--card);flex-direction:column;text-align:center}.nav-links.active{display:flex}.menu-toggle{display:block}.hero h1{font-size:65px}section{padding:70px 5%}}
+
+.kas-controls{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:22px auto;max-width:850px}
+.kas-controls label{color:var(--muted);font-size:14px}
+.kas-date{padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text)}
+.kas-table-wrap{overflow-x:auto;margin-top:25px}
+.kas-table{min-width:760px}
+.kas-table td:first-child,.kas-table th:first-child{text-align:center;width:60px}
+.kas-table .student-name{min-width:260px}
+.status-cell{text-align:center}
+.status-cell input{width:21px;height:21px;cursor:pointer;accent-color:#38bdf8}
+.status-done{color:#22c55e;font-weight:700}
+.status-pending{color:#f59e0b;font-weight:600}
+.kas-summary{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.summary-pill{padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--border);font-size:13px}
+
+
+.kas-monthbar{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto 22px}
+.kas-monthbar select,.kas-monthbar button{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+.kas-monthbar button:hover{border-color:var(--primary)}
+.month-title{text-align:center;margin:10px 0 18px;color:var(--primary);font-weight:700;font-size:20px}
+.month-note{text-align:center;color:var(--muted);font-size:13px;margin-bottom:18px}
+.kas-grid-wrap{overflow:auto;border-radius:16px;border:1px solid var(--border)}
+.kas-grid{min-width:1100px}
+.kas-grid th,.kas-grid td{text-align:center;padding:8px 7px;font-size:12px}
+.kas-grid .name-col{text-align:left;min-width:245px;position:sticky;left:0;background:var(--card);z-index:2}
+.kas-grid thead .name-col{background:var(--card2);z-index:4}
+.kas-grid .week-head{background:var(--card2);color:var(--primary);font-size:13px}
+.kas-grid .date-head{background:var(--card);font-size:11px;min-width:64px}
+.kas-grid .unpaid-col{min-width:95px;background:rgba(245,158,11,.06);font-weight:700}
+.kas-grid tbody tr:hover td{background:rgba(56,189,248,.04)}
+.kas-grid input{width:18px;height:18px;cursor:pointer;accent-color:#38bdf8}
+.unpaid-zero{color:#22c55e}.unpaid-many{color:#f59e0b}
+.kas-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:20px}
+.overview-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:center}
+.overview-card b{display:block;font-size:25px;margin-top:4px}
+
+/* ===== FITUR TAMBAHAN X-10 ===== */
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:25px}
+.stat-card{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px}
+.stat-card .stat-icon{font-size:28px}.stat-card .stat-number{font-size:30px;font-weight:800;margin:5px 0}.stat-card small{color:var(--muted)}
+.progress{height:8px;background:var(--card2);border-radius:99px;overflow:hidden;margin-top:10px}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:99px;width:0;transition:.5s}
+.today-box{margin-top:18px;padding:18px;border:1px solid var(--border);background:var(--card);border-radius:18px}
+.today-box strong{color:var(--primary)}
+.task-grid,.piket-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.task-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+.task-card h3{margin:7px 0}.task-card p{color:var(--muted);font-size:14px}.task-card .task-date{color:var(--primary);font-size:12px;font-weight:700}
+.task-card.done{opacity:.65}.task-card.done h3{text-decoration:line-through}
+.task-check{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--muted);font-size:13px}.task-check input{width:18px;height:18px;accent-color:#38bdf8}
+.piket-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px}
+.piket-card h3{color:var(--primary);margin-bottom:10px}.piket-card p{line-height:1.8;color:var(--muted)}
+.day-badge{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(56,189,248,.1);color:var(--primary);font-size:12px;font-weight:700}
+.quick-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.quick-actions a{padding:10px 14px;border:1px solid var(--border);background:var(--card);border-radius:10px;color:var(--text);text-decoration:none;font-size:13px}
+.quick-actions a:hover{border-color:var(--primary);color:var(--primary)}
+.kas-export{margin-top:18px;text-align:center}
+.kas-export button{padding:10px 15px;border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:10px;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:25px;transform:translate(-50%,20px);background:var(--card);border:1px solid var(--primary);color:var(--text);padding:12px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:.3s;z-index:2000;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}.task-grid,.piket-grid{grid-template-columns:1fr}.stat-card .stat-number{font-size:25px}}
+@media(max-width:480px){.dashboard-grid{grid-template-columns:1fr 1fr}.stat-card{padding:15px}}
+
+/* === Task Manager === */
+.task-manager{margin-top:18px;padding:18px;border:1px solid var(--border);border-radius:18px;background:var(--card)}
+.task-form{display:grid;grid-template-columns:1fr 1.5fr 180px auto;gap:10px;margin-bottom:16px}
+.task-form input,.task-form button{min-height:44px;border-radius:12px;border:1px solid var(--border);padding:10px 12px;font:inherit}
+.task-form input{background:var(--bg);color:var(--text)}
+.task-form button{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:0;font-weight:700;cursor:pointer}
+.task-form button:hover{filter:brightness(1.08)}
+.task-list-edit{display:grid;gap:10px}
+.task-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:13px;border:1px solid var(--border);border-radius:14px;background:var(--bg)}
+.task-row.done{opacity:.65}
+.task-row.done .task-title{text-decoration:line-through}
+.task-check{width:20px;height:20px;accent-color:#2563eb}
+.task-info{min-width:0}
+.task-subject{font-size:.8rem;font-weight:800;color:#7c3aed;text-transform:uppercase}
+.task-title{font-weight:700;margin-top:2px}
+.task-due{font-size:.82rem;opacity:.7;margin-top:3px}
+.task-actions{display:flex;gap:7px}
+.task-actions button{border:1px solid var(--border);background:transparent;color:var(--text);border-radius:9px;padding:7px 10px;cursor:pointer}
+.task-actions .delete{color:#ef4444}
+.task-empty{text-align:center;padding:22px;opacity:.65;border:1px dashed var(--border);border-radius:14px}
+.task-editing{outline:2px solid #7c3aed}
+@media(max-width:720px){
+ .task-form{grid-template-columns:1fr}
+ .task-row{grid-template-columns:auto 1fr}
+ .task-actions{grid-column:2;justify-content:flex-start}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">X<span>-10</span></div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Beranda</a></li><li><a href="#dashboard">Dashboard</a></li>
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#anggota">Anggota</a></li>
+    <li><a href="#struktur">Struktur</a></li>
+    <li><a href="#jadwal">Jadwal</a></li>
+    <li><a href="#kas">Kas</a></li>
+    <li><a href="#tugas">Tugas</a></li><li><a href="#piket">Piket</a></li><li><a href="#galeri">Galeri</a></li>
+  </ul>
+  <div>
+    <button class="nav-btn" onclick="toggleTheme()" aria-label="Ganti tema">☀️</button>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Buka menu">☰</button>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div>
+    <div class="badge">✦ WEBSITE PRIBADI KELAS X-10 ✦</div>
+    <h1>WELCOME<br><span>X-10</span></h1>
+    <p>Satu kelas, banyak cerita. Pusat informasi, jadwal, struktur organisasi, kas, anggota, dan kenangan kelas X-10.</p>
+    <div class="buttons">
+      <a class="btn primary" href="#profil">Jelajahi Kelas</a>
+      <a class="btn secondary" href="#anggota">Lihat Anggota</a>
+    </div>
+    <div class="clock" id="clock">Loading...</div>
+  </div>
+</section>
+
+<section id="dashboard">
+  <div class="section-title"><h2>Dashboard X-10</h2><p>Ringkasan informasi kelas hari ini</p></div>
+  <div class="dashboard-grid">
+    <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-number">36</div><small>Total Siswa</small></div>
+    <div class="stat-card"><div class="stat-icon">💰</div><div class="stat-number" id="dashKas">Rp 750.000</div><small>Saldo Kas</small></div>
+    <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-number" id="dashTasks">0</div><small>Tugas Aktif</small></div>
+    <div class="stat-card"><div class="stat-icon">💳</div><div class="stat-number" id="dashLunas">0/36</div><small>Lunas Kas Bulan Ini</small><div class="progress"><span id="dashProgress"></span></div></div>
+  </div>
+  <div class="today-box">
+    <strong>📅 Hari ini</strong>
+    <p id="todayInfo" style="color:var(--muted);margin-top:6px">Memuat informasi...</p>
+    <div class="quick-actions">
+      <a href="#kas">💰 Cek Kas</a><a href="#tugas">📚 Cek Tugas</a><a href="#piket">🧹 Cek Piket</a><a href="#pengumuman">📢 Pengumuman</a>
+    </div>
+  </div>
+</section>
+
+<section id="profil">
+  <div class="section-title"><h2>Profil Kelas</h2><p>Informasi singkat X-10</p></div>
+  <div class="cards">
+    <div class="card"><div class="icon">🏫</div><h3>Kelas</h3><p>X-10</p></div>
+    <div class="card"><div class="icon">🎓</div><h3>Tahun Ajaran</h3><p>2026 / 2027</p></div>
+    <div class="card"><div class="icon">👥</div><h3>Jumlah Siswa</h3><p>36 siswa</p></div>
+    <div class="card"><div class="icon">💰</div><h3>Kas Saat Ini</h3><p id="profileKas">Rp 750.000</p></div>
+  </div>
+</section>
+
+<section id="anggota">
+  <div class="section-title"><h2>Anggota Kelas</h2><p>36 siswa X-10</p></div>
+  <input class="search" id="search" oninput="filterNames()" placeholder="🔎 Cari nama siswa...">
+  <div class="cards" id="memberList"></div>
+</section>
+
+<section id="struktur">
+  <div class="section-title"><h2>Struktur Organisasi</h2><p>Pengurus kelas X-10</p></div>
+  <div class="structure">
+    <div class="role"><h3>Wali Kelas</h3><p>Aryani Yuli A S.E</p></div>
+    <div class="role"><h3>Ketua Kelas</h3><p>Bachtiar Arief Sobirin</p></div>
+    <div class="role"><h3>Wakil Ketua</h3><p>Kirana Nur Aurelia</p></div>
+    <div class="role"><h3>Sekretaris</h3><p>Anis Marselinda<br>Nita Sholkha Atiqoh</p></div>
+    <div class="role"><h3>Bendahara</h3><p>Nasywa Tsani Prihanto<br>Faiq Agin Zafir Al-Amr</p></div>
+    <div class="role"><h3>Kebersihan</h3><p>Nadin Milatul Zahra<br>Muhammad Rizki Al Fatah</p></div>
+    <div class="role"><h3>Keagamaan</h3><p>Rozan<br>Lulu Atul Mahfudhah</p></div>
+    <div class="role"><h3>Keamanan</h3><p>Rheyka Aurelly Gaya Putri<br>Muhammad Khairul Azzam</p></div>
+    <div class="role"><h3>Perlengkapan</h3><p>Echa Artika Sari<br>Nifail Sahlu Rudiantika</p></div>
+    <div class="role"><h3>Kekeluargaan</h3><p>Dwi Mughni Nuraini<br>Adam Lazuardhi Rizqulloh</p></div>
+  </div>
+</section>
+
+<section id="jadwal">
+  <div class="section-title"><h2>Jadwal Pelajaran</h2><p>Kelas X-10</p></div>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Hari</th><th>Pelajaran</th></tr>
+      <tr><td>Senin</td><td>Ekonomi 2j • Matematika 2j • KKA 2j • Biologi 2j • Sosiologi 2j</td></tr>
+      <tr><td>Selasa</td><td>Bahasa Inggris 2j • Geografi 1j • Fisika 3j • Sejarah 2j • PPKN 2j</td></tr>
+      <tr><td>Rabu</td><td>PAI 2j • Ekonomi 1j • Biologi 1j • Senbud 2j • Matematika 2j • Informatika 2j</td></tr>
+      <tr><td>Kamis</td><td>Olahraga 3j • Sosiologi 1j • Kimia 1j • B. Inggris 1j • B. Indo 2j • Sejarah 1j • PAI 1j</td></tr>
+      <tr><td>Jumat</td><td>Kimia 2j • B. Jawa 2j • B. Indo 2j • Geografi 2j</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="kas">
+  <div class="section-title">
+    <h2>Kas Kelas</h2>
+    <p>Tabel pembayaran kas X-10 selama satu bulan</p>
+  </div>
+
+  <div class="kas">
+    <h3>Total Saldo Kas</h3>
+    <div class="kas-value" id="kasValue">Rp 750.000</div>
+    <p>Ubah nominal saldo lalu tekan <b>Simpan Saldo</b>. Saldo akan disimpan di browser.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0">
+      <label for="saldoInput" style="font-weight:700">Rp</label>
+      <input id="saldoInput" type="number" min="0" step="1000" value="750000" inputmode="numeric" aria-label="Nominal saldo kas" style="flex:1;min-width:180px;padding:11px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit">
+      <button onclick="simpanSaldoDariInput()">💾 Simpan Saldo</button>
+    </div>
+    <button onclick="ubahKas(4000)">+ Rp4.000</button>
+    <button onclick="ubahKas(-4000)">− Rp4.000</button>
+    <button onclick="resetKas()">Reset Saldo</button>
+  </div>
+
+  <div class="kas-monthbar">
+    <button onclick="ubahBulan(-1)" aria-label="Bulan sebelumnya">←</button>
+    <select id="monthSelect" onchange="pilihBulan(this.value)" aria-label="Pilih bulan kas"></select>
+    <button onclick="ubahBulan(1)" aria-label="Bulan berikutnya">→</button>
+    <button onclick="resetBulanIni()">Reset Data Bulan Ini</button>
+  </div>
+
+  <div class="month-title" id="monthTitle"></div>
+  <div class="month-note">Centang setiap tanggal ketika siswa sudah membayar kas. Kolom <b>Belum</b> otomatis menghitung berapa kali siswa belum membayar pada bulan tersebut.</div>
+
+  <div class="kas-grid-wrap">
+    <table class="kas-grid">
+      <thead id="kasHead"></thead>
+      <tbody id="kasBody"></tbody>
+    </table>
+  </div>
+
+  <div class="kas-overview">
+    <div class="overview-card">Siswa Sudah Lunas Bulan Ini<b id="lunasCount">0</b></div>
+    <div class="overview-card">Siswa Masih Ada Tunggakan<b id="tunggakCount">36</b></div>
+    <div class="overview-card">Total Pembayaran Tercatat<b id="paidSlots">0</b></div>
+    <div class="overview-card">Total Belum Dibayar<b id="unpaidSlots">0</b></div>
+  </div>
+</section>
+
+
+<section id="tugas" class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">AKADEMIK</span>
+      <h2>Daftar Tugas & Deadline</h2>
+      <p>Kelola tugas kelas langsung dari website.</p>
+    </div>
+  </div>
+
+  <div class="task-manager">
+    <form id="taskForm" class="task-form">
+      <input id="taskSubject" type="text" placeholder="Mata pelajaran" required>
+      <input id="taskTitle" type="text" placeholder="Nama tugas" required>
+      <input id="taskDue" type="date" required>
+      <button id="taskSubmit" type="submit">＋ Tambah Tugas</button>
+    </form>
+    <div id="taskListEdit" class="task-list-edit"></div>
+  </div>
+</section>
+
+<section id="piket">
+  <div class="section-title"><h2>Jadwal Piket</h2><p>Petugas kebersihan kelas X-10</p></div>
+  <div class="piket-grid">
+    <div class="piket-card"><span class="day-badge">SENIN</span><h3>Petugas Piket</h3><p>Kelompok 1<br>Membersihkan papan tulis, lantai, dan merapikan meja.</p></div>
+    <div class="piket-card"><span class="day-badge">SELASA</span><h3>Petugas Piket</h3><p>Kelompok 2<br>Membersihkan papan tulis, lantai, dan merapikan meja.</p></div>
+    <div class="piket-card"><span class="day-badge">RABU</span><h3>Petugas Piket</h3><p>Kelompok 3<br>Membersihkan papan tulis, lantai, dan merapikan meja.</p></div>
+    <div class="piket-card"><span class="day-badge">KAMIS</span><h3>Petugas Piket</h3><p>Kelompok 4<br>Membersihkan papan tulis, lantai, dan merapikan meja.</p></div>
+    <div class="piket-card"><span class="day-badge">JUMAT</span><h3>Petugas Piket</h3><p>Kelompok 5<br>Membersihkan papan tulis, lantai, dan merapikan meja.</p></div>
+  </div>
+  <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:18px">Nama anggota tiap kelompok bisa kamu ganti langsung di bagian HTML.</p>
+</section>
+
+<section id="pengumuman">
+  <div class="section-title"><h2>Pengumuman</h2><p>Informasi kelas</p></div>
+  <div class="announcement"><small>INFORMASI</small><h3>Website Kelas X-10</h3><p>Website ini menjadi pusat informasi kelas, mulai dari anggota, struktur, jadwal, hingga kas.</p></div>
+  <div class="announcement"><small>KAS</small><h3>Saldo Awal</h3><p>Saldo kas yang tercatat saat ini adalah Rp 750.000.</p></div>
+</section>
+
+<section id="galeri">
+  <div class="section-title"><h2>Galeri</h2><p>Tempat menyimpan dokumentasi kelas</p></div>
+  <div class="gallery">
+    <div class="gallery-item">📸</div><div class="gallery-item">🎓</div><div class="gallery-item">🏫</div>
+    <div class="gallery-item">👥</div><div class="gallery-item">✨</div><div class="gallery-item">❤️</div>
+  </div>
+</section>
+
+<footer>© 2026 X-10 • Class Website • Dibuat untuk kebutuhan kelas</footer>
+
+<div class="toast" id="toast"></div>
+
+<div class="accessibility">
+  <div class="access-panel" id="accessPanel">
+    <strong>Aksesibilitas</strong>
+    <button onclick="font(10)">A+ Perbesar Teks</button>
+    <button onclick="font(-10)">A− Perkecil Teks</button>
+    <button onclick="resetFont()">Reset Teks</button>
+    <button onclick="document.body.classList.toggle('high-contrast')">Kontras Tinggi</button>
+  </div>
+  <button class="access-btn" onclick="toggleAccess()" aria-label="Menu aksesibilitas">♿</button>
+</div>
+
+<script>
+const names = [
+"Adam Lazuardhi Rizqulloh",
+"Alfadhel Munif Arrayyasetya",
+"Anis Marselinda",
+"Annisa Maulina Purwanto",
+"Assalafia Nur Jazeera",
+"Azqi Azzam Subhi",
+"Bachtiar Arief Sobirin",
+"Dwi Mughni Nuraini",
+"Echa Artika Sari",
+"Faiq Agin Zafir Al-Amr",
+"Farras Syafiq Alrizki",
+"Fawwas Hanannur",
+"Iva Safana Natasya",
+"Kirana Nur Aurelia",
+"Lulu Atul Mahfudhah",
+"Malina Syafa Putri Santoso",
+"Meri Afiliya Anjani",
+"Muhammad Affan Sya'bani",
+"Muhammad Khairul Azzam",
+"Muhammad Lutfi",
+"Muhammad Rizki Al Fatah",
+"Nadin Milatul Zahra",
+"Nasywa Tsani Prihanto",
+"Nifail Sahlu Rudiantika",
+"Nita Sholkha Atiqoh",
+"Norma Mutiara Dewi",
+"Oktara Adhita Putra",
+"Pratiwi Amaliah",
+"Putra Azka Nugraha Rinaldy",
+"Retno Wahyu Kurniasih",
+"Rheyka Aurelly Gaya Putri",
+"Rizqi Oktaviyani",
+"Rozan",
+"Siti Rubi Aulia Putri",
+"Tiara Putri Satifa",
+"Zarifa Aulia Askhiya"
+];
+
+function renderNames(list=names){
+  document.getElementById("memberList").innerHTML=list.map((n,i)=>
+    `<div class="card member"><div class="avatar">${n.charAt(0)}</div><h3>${n}</h3><p>Siswa X-10</p></div>`
+  ).join("");
+}
+function filterNames(){
+  const q=document.getElementById("search").value.toLowerCase();
+  renderNames(names.filter(n=>n.toLowerCase().includes(q)));
+}
+renderNames();
+
+function updateClock(){
+  const d=new Date();
+  document.getElementById("clock").textContent="🕐 "+d.toLocaleTimeString("id-ID")+" • "+d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+}
+setInterval(updateClock,1000); updateClock();
+
+function toggleTheme(){document.body.classList.toggle("light")}
+function toggleMenu(){document.getElementById("navLinks").classList.toggle("active")}
+const KAS_AWAL=750000;
+const KAS_STORAGE_KEY="x10_kas_saldo_v2";
+let kas=KAS_AWAL;
+try {
+  const savedKas=localStorage.getItem(KAS_STORAGE_KEY);
+  if(savedKas!==null && Number.isFinite(Number(savedKas))) kas=Math.max(0,Number(savedKas));
+} catch(e) {
+  console.warn("Penyimpanan saldo tidak tersedia",e);
+}
+const kasPrefix="x10_kas_";
+const monthNames=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+const dayNames=["Senin","Selasa","Rabu"];
+let selectedMonth=new Date(2026,9,1);
+
+function simpanSaldoKas(){
+  try {
+    localStorage.setItem(KAS_STORAGE_KEY,String(kas));
+    return true;
+  } catch(e) {
+    alert("Saldo belum bisa disimpan oleh browser. Coba buka website melalui Chrome/Edge biasa, bukan mode privat.");
+    return false;
+  }
+}
+function tampilKas(){
+  const text="Rp "+kas.toLocaleString("id-ID");
+  const el=document.getElementById("kasValue"); if(el) el.textContent=text;
+  const input=document.getElementById("saldoInput"); if(input) input.value=kas;
+  const dash=document.getElementById("dashKas"); if(dash) dash.textContent=text;
+  const profile=document.getElementById("profileKas"); if(profile) profile.textContent=text;
+}
+function simpanSaldoDariInput(){
+  const input=document.getElementById("saldoInput");
+  const value=Number(input?.value);
+  if(!Number.isFinite(value) || value<0){alert("Masukkan nominal saldo yang valid.");return;}
+  kas=Math.round(value);
+  if(simpanSaldoKas()){tampilKas();updateDashboard();showToast("Saldo kas berhasil disimpan");}
+}
+function ubahKas(n){kas=Math.max(0,kas+n);if(simpanSaldoKas()){tampilKas();updateDashboard();showToast("Saldo kas diperbarui dan disimpan")}}
+function resetKas(){kas=KAS_AWAL;if(simpanSaldoKas()){tampilKas();updateDashboard();showToast("Saldo kas direset dan disimpan")}}
+function monthKey(){return selectedMonth.getFullYear()+"-"+String(selectedMonth.getMonth()+1).padStart(2,"0")}
+function storageKey(){return kasPrefix+monthKey()}
+function getMonthData(){try{return JSON.parse(localStorage.getItem(storageKey())||"{}")}catch(e){return {}}}
+function saveMonthData(data){localStorage.setItem(storageKey(),JSON.stringify(data))}
+function getKasDates(){
+  const y=selectedMonth.getFullYear(), m=selectedMonth.getMonth();
+  const dates=[];
+  for(let d=1; d<=new Date(y,m+1,0).getDate(); d++){
+    const date=new Date(y,m,d), dow=date.getDay();
+    if(dow>=1 && dow<=3) dates.push({day:d,dow:dow-1,date});
+  }
+  return dates;
+}
+function formatDateShort(date){return date.getDate()+" "+monthNames[date.getMonth()].slice(0,3)}
+function pilihBulan(value){const [y,m]=value.split("-").map(Number);selectedMonth=new Date(y,m-1,1);renderKas()}
+function setMonthSelect(){document.getElementById("monthSelect").value=monthKey()}
+function ubahBulan(delta){selectedMonth=new Date(selectedMonth.getFullYear(),selectedMonth.getMonth()+delta,1);setMonthSelect();renderKas()}
+function buildMonthOptions(){
+  const select=document.getElementById("monthSelect");
+  select.innerHTML="";
+  for(let y=2026;y<=2030;y++)for(let m=0;m<12;m++){
+    const v=y+"-"+String(m+1).padStart(2,"0");
+    const o=document.createElement("option");o.value=v;o.textContent=monthNames[m]+" "+y;select.appendChild(o);
+  }
+  setMonthSelect();
+}
+function renderKas(){
+  const dates=getKasDates(), data=getMonthData();
+  document.getElementById("monthTitle").textContent="TABEL KAS "+monthNames[selectedMonth.getMonth()].toUpperCase()+" "+selectedMonth.getFullYear();
+  const head=document.getElementById("kasHead");
+  head.innerHTML=`<tr><th rowspan="2">No.</th><th rowspan="2" class="name-col">Nama</th>${dayNames.map((day,i)=>{const count=dates.filter(x=>x.dow===i).length;return `<th colspan="${count}" class="week-head">${day}</th>`}).join("")}<th rowspan="2" class="unpaid-col">Belum</th></tr>`+
+    `<tr>${dates.map(x=>`<th class="date-head">${formatDateShort(x.date)}</th>`).join("")}</tr>`;
+  head.rows[0].querySelectorAll('.week-head').forEach((th,i)=>{const count=dates.filter(x=>x.dow===i).length; if(!count) th.style.display='none'});
+  const rows=names.map((name,i)=>{
+    const row=data[i]||{};
+    const unpaid=dates.filter((_,j)=>!row[j]).length;
+    return `<tr><td>${i+1}</td><td class="name-col">${name}</td>${dates.map((x,j)=>`<td><input type="checkbox" ${row[j]?"checked":""} aria-label="${name} ${formatDateShort(x.date)}" onchange="setPayment(${i},${j},this.checked)"></td>`).join("")}<td class="unpaid-col ${unpaid===0?'unpaid-zero':'unpaid-many'}">${unpaid===0?'✓ Lunas':unpaid+'x'}</td></tr>`;
+  }).join("");
+  document.getElementById("kasBody").innerHTML=rows;
+  updateKasOverview(dates,data);
+  updateDashboard();
+}
+function setPayment(studentIndex,dateIndex,checked){
+  const data=getMonthData(); if(!data[studentIndex]) data[studentIndex]={};
+  data[studentIndex][dateIndex]=checked; saveMonthData(data); renderKas();
+}
+function updateKasOverview(dates,data){
+  let paid=0,unpaid=0,lunas=0;
+  names.forEach((_,i)=>{
+    const row=data[i]||{};let rowPaid=0;
+    dates.forEach((_,j)=>{if(row[j]){paid++;rowPaid++}else unpaid++});
+    if(rowPaid===dates.length)lunas++;
+  });
+  document.getElementById("lunasCount").textContent=lunas;
+  document.getElementById("tunggakCount").textContent=names.length-lunas;
+  document.getElementById("paidSlots").textContent=paid;
+  document.getElementById("unpaidSlots").textContent=unpaid;
+}
+function resetBulanIni(){if(confirm("Hapus semua tanda pembayaran pada bulan ini?")){localStorage.removeItem(storageKey());renderKas()}}
+buildMonthOptions();renderKas();tampilKas();
+
+function toggleAccess(){document.getElementById("accessPanel").classList.toggle("show")}
+let fs=100;
+function font(n){fs=Math.max(70,Math.min(150,fs+n));document.body.style.fontSize=fs+"%"}
+function resetFont(){fs=100;document.body.style.fontSize="100%"}
+
+// ===== FITUR TAMBAHAN =====
+const DEFAULT_TASKS = [
+  {id: 1, subject: "Fisika", title: "Angka Penting", due: "2026-10-02", done: false},
+  {id: 2, subject: "Bahasa Indonesia", title: "Analisis Unsur Kebahasaan", due: "2026-10-05", done: false},
+  {id: 3, subject: "Sosiologi", title: "Tugas Tabel Sosiologi", due: "2026-10-07", done: false},
+  {id: 4, subject: "Informatika", title: "Algoritma & Flowchart", due: "2026-10-09", done: false}
+];
+
+let tasks = JSON.parse(localStorage.getItem("x10_tasks")) || DEFAULT_TASKS;
+let editingTaskId = null;
+
+function saveTasks(){
+  localStorage.setItem("x10_tasks", JSON.stringify(tasks));
+  renderTasks();
+  if(typeof updateDashboard === "function") updateDashboard();
+}
+
+function formatTaskDate(date){
+  if(!date) return "-";
+  return new Date(date + "T00:00:00").toLocaleDateString("id-ID", {
+    day:"2-digit", month:"long", year:"numeric"
+  });
+}
+
+function renderTasks(){
+  const list = document.getElementById("taskListEdit");
+  if(!list) return;
+
+  if(!tasks.length){
+    list.innerHTML = '<div class="task-empty">Belum ada tugas. Tambahkan tugas menggunakan form di atas.</div>';
+    return;
+  }
+
+  list.innerHTML = tasks.map(t => `
+    <div class="task-row ${t.done ? "done" : ""}" data-id="${t.id}">
+      <input class="task-check" type="checkbox" ${t.done ? "checked" : ""}
+        onchange="toggleTask(${t.id})" aria-label="Tandai ${escapeTask(t.title)} selesai">
+      <div class="task-info">
+        <div class="task-subject">${escapeTask(t.subject)}</div>
+        <div class="task-title">${escapeTask(t.title)}</div>
+        <div class="task-due">Deadline: ${formatTaskDate(t.due)}</div>
+      </div>
+      <div class="task-actions">
+        <button type="button" onclick="editTask(${t.id})">✏️ Edit</button>
+        <button type="button" class="delete" onclick="deleteTask(${t.id})">🗑️ Hapus</button>
+      </div>
+    </div>
+  `).join("");
+
+  const submit = document.getElementById("taskSubmit");
+  if(submit) submit.textContent = editingTaskId ? "💾 Simpan Perubahan" : "＋ Tambah Tugas";
+}
+
+function escapeTask(value){
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function resetTaskForm(){
+  editingTaskId = null;
+  document.getElementById("taskForm")?.reset();
+  const submit = document.getElementById("taskSubmit");
+  if(submit) submit.textContent = "＋ Tambah Tugas";
+}
+
+function editTask(id){
+  const task = tasks.find(t => t.id === id);
+  if(!task) return;
+  editingTaskId = id;
+  document.getElementById("taskSubject").value = task.subject;
+  document.getElementById("taskTitle").value = task.title;
+  document.getElementById("taskDue").value = task.due;
+  document.getElementById("taskSubmit").textContent = "💾 Simpan Perubahan";
+  document.getElementById("taskSubject").focus();
+}
+
+function deleteTask(id){
+  const task = tasks.find(t => t.id === id);
+  if(!task) return;
+  if(!confirm(`Hapus tugas "${task.title}"?`)) return;
+  tasks = tasks.filter(t => t.id !== id);
+  if(editingTaskId === id) resetTaskForm();
+  saveTasks();
+}
+
+function toggleTask(id){
+  const task = tasks.find(t => t.id === id);
+  if(!task) return;
+  task.done = !task.done;
+  saveTasks();
+}
+
+document.getElementById("taskForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const subject = document.getElementById("taskSubject").value.trim();
+  const title = document.getElementById("taskTitle").value.trim();
+  const due = document.getElementById("taskDue").value;
+
+  if(!subject || !title || !due) return;
+
+  if(editingTaskId){
+    const task = tasks.find(t => t.id === editingTaskId);
+    if(task){
+      task.subject = subject;
+      task.title = title;
+      task.due = due;
+    }
+  } else {
+    tasks.push({
+      id: Date.now(),
+      subject,
+      title,
+      due,
+      done: false
+    });
+  }
+
+  resetTaskForm();
+  saveTasks();
+});
+
+renderTasks();
+
+
+function renderTasks(){
+  const saved=JSON.parse(localStorage.getItem("x10_tasks_done")||"{}");
+  const el=document.getElementById("taskList");
+  if(!el)return;
+  el.innerHTML=tasks.map(t=>{
+    const done=!!saved[t.id];
+    const d=new Date(t.date+"T00:00:00");
+    return `<div class="task-card ${done?"done":""}">
+      <span class="day-badge">${t.subject}</span>
+      <h3>${t.title}</h3>
+      <p class="task-date">Deadline: ${d.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}</p>
+      <label class="task-check"><input type="checkbox" ${done?"checked":""} onchange="toggleTask('${t.id}',this.checked)"> Sudah selesai</label>
+    </div>`;
+  }).join("");
+  updateDashboard();
+}
+function toggleTask(id,checked){
+  const saved=JSON.parse(localStorage.getItem("x10_tasks_done")||"{}");
+  saved[id]=checked;
+  localStorage.setItem("x10_tasks_done",JSON.stringify(saved));
+  renderTasks();
+  showToast(checked?"Tugas ditandai selesai ✓":"Status tugas dibatalkan");
+}
+function updateDashboard(){
+  const done=tasks.filter(t=>!(JSON.parse(localStorage.getItem("x10_tasks_done")||"{}")[t.id])).length;
+  const dash=document.getElementById("dashTasks");
+  if(dash)dash.textContent=done;
+  const dk=document.getElementById("dashKas");
+  if(dk)dk.textContent="Rp "+kas.toLocaleString("id-ID");
+  const data=getMonthData(),dates=getKasDates();
+  let lunas=0;
+  names.forEach((_,i)=>{
+    const row=data[i]||{};
+    if(dates.length && dates.every((_,j)=>row[j])) lunas++;
+  });
+  const dl=document.getElementById("dashLunas");
+  const dp=document.getElementById("dashProgress");
+  if(dl)dl.textContent=lunas+"/36";
+  if(dp)dp.style.width=(lunas/36*100)+"%";
+}
+function updateToday(){
+  const now=new Date();
+  const day=now.toLocaleDateString("id-ID",{weekday:"long"});
+  const info=document.getElementById("todayInfo");
+  if(info)info.textContent=day+" • "+now.toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})+" • "+now.toLocaleTimeString("id-ID");
+}
+function showToast(msg){
+  const t=document.getElementById("toast");
+  if(!t)return;
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
+}
+function exportKasCSV(){
+  const dates=getKasDates(),data=getMonthData();
+  const rows=[["No","Nama",...dates.map(x=>formatDateShort(x.date)),"Belum"]];
+  names.forEach((name,i)=>{
+    const row=data[i]||{};
+    const vals=dates.map((_,j)=>row[j]?"LUNAS":"BELUM");
+    const unpaid=vals.filter(v=>v==="BELUM").length;
+    rows.push([i+1,name,...vals,unpaid]);
+  });
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
+  const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="Kas_X-10_"+monthKey()+".csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Rekap kas berhasil diekspor");
+}
+
+renderTasks();updateToday();setInterval(updateToday,1000);updateDashboard();
+</script>
+</body>
+</html>
